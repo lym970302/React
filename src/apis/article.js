@@ -20,7 +20,7 @@ export const createArticleAPI = (data) => {
 //更新文章
 export const updateArticleAPI = (data) => {
   return request({
-    url: "/mp/articles/${data.id}?draft=false",
+    url: `/mp/articles/${data.id}?draft=false`,
     method: "POST",
     data,
   });
@@ -38,16 +38,14 @@ export const getAriticleListAPI = (params) => {
 //删除文章
 export const delArticleAPI = (id) => {
   return request({
-    url: "/mp/articles/${id}",
+    url: `/mp/articles/${id}`,
     method: "POST",
-    id,
   });
 };
 
 //获取文章详情
 export const getArticleById = (id) => {
   return request({
-    url: "/mp/articles/${id}",
-    id,
+    url: `/mp/articles/${id}`,
   });
 };
