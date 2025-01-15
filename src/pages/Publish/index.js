@@ -1,8 +1,10 @@
 import { Breadcrumb, Card, Form, Input, Select } from "antd";
 import { Link } from "react-router-dom";
+import { useChannel } from "@/hooks/useChannel";
 
 const Publish = () => {
   const [form] = Form.useForm();
+  // const channelList = useChannel();
   const onFinish = () => {};
   return (
     <div className="publish">
