@@ -1,4 +1,4 @@
-import { Breadcrumb, Card, Form, Input } from "antd";
+import { Breadcrumb, Card, Form, Input, Select } from "antd";
 import { Link } from "react-router-dom";
 
 const Publish = () => {
@@ -29,6 +29,16 @@ const Publish = () => {
             rules={[{ required: true, message: "请输入文章标题" }]}
           >
             <Input placeholder="请输入文章标题" style={{ width: 400 }} />
+          </Form.Item>
+          <Form.Item
+            label="频道"
+            name="channel_id"
+            rules={[{ required: true, message: "请选择文章频道" }]}
+          >
+            <Select
+              placeholder="请选择文章频道"
+              style={{ width: 400 }}
+            ></Select>
           </Form.Item>
         </Form>
       </Card>
