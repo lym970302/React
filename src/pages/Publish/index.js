@@ -4,6 +4,7 @@ import {
   Card,
   Form,
   Input,
+  message,
   Radio,
   Select,
   Space,
@@ -16,6 +17,7 @@ import { Link } from "react-router-dom";
 import "./index.scss";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+import { createArticleAPI } from "@/apis/article";
 
 const Publish = () => {
   const [form] = Form.useForm();
@@ -37,7 +39,28 @@ const Publish = () => {
   // const { channelList } = useChannel();
 
   //提交表单
-  const onFinish = () => {};
+  const onFinish = (formValue) => {
+    if (imageList.length !== imageType) {
+      return message.warning("封面类型和图片数量不匹配");
+    }
+    const { title, content, channel_id } = formValue;
+    const reqData = {
+      title,
+      content,
+      cover: {
+        type: imageType,
+        images: imageList.map((item) => {
+          if (item.response) {
+            return item.response.data.url;
+          } else {
+            return item.url;
+          }
+        }),
+      },
+      channel_id,
+    };
+    createArticleAPI(reqData);
+  };
   return (
     <div className="publish">
       <Card
