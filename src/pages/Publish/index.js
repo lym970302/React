@@ -75,7 +75,7 @@ const Publish = () => {
       >
         <Form
           form={form}
-          initialValues={{ type: 0 }}
+          initialValues={{ type: 1 }}
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 16 }}
           onFinish={onFinish}

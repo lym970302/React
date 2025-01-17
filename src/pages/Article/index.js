@@ -1,4 +1,4 @@
-import { Breadcrumb, Card, Form, Radio, Select, DatePicker } from "antd";
+import { Breadcrumb, Card, Form, Radio, Select } from "antd";
 import { Link } from "react-router-dom";
 
 const Article = () => {
@@ -16,7 +16,10 @@ const Article = () => {
           />
         }
       >
-        <Form initialValues={{ status: "" }} onFinish={onFinish}>
+        <Form
+          initialValues={{ status: "", channel_id: "" }}
+          onFinish={onFinish}
+        >
           <Form.Item label="状态" name="status">
             <Radio.Group>
               <Radio value={""}>全部</Radio>
