@@ -22,6 +22,10 @@ import { createArticleAPI } from "@/apis/article";
 const Publish = () => {
   const [form] = Form.useForm();
 
+  //获取路由查询参数id
+  // const [searchParams] = useSearchParams();
+  // const articleId = searchParams.get("id");
+
   //图片个数类型
   const [imageType, setImageType] = useState(1);
   //图片列表

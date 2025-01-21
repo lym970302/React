@@ -15,12 +15,12 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 const GeekLayout = () => {
   const { Header, Sider } = Layout;
   const navigate = useNavigate();
-  //   const dispathch = useDispatch();
+  // const dispathch = useDispatch();
 
   //获取登录用户信息
-  //   useEffect(() => {
-  //     dispathch(fetchUserInfo());
-  //   }, [dispathch]);
+  // useEffect(() => {
+  //   dispathch(fetchUserInfo());
+  // }, [dispathch]);
 
   //退出确认
   const onConfirm = () => {

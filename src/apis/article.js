@@ -21,7 +21,7 @@ export const createArticleAPI = (data) => {
 export const updateArticleAPI = (data) => {
   return request({
     url: `/mp/articles/${data.id}?draft=false`,
-    method: "POST",
+    method: "PUT",
     data,
   });
 };
@@ -39,7 +39,7 @@ export const getAriticleListAPI = (params) => {
 export const delArticleAPI = (id) => {
   return request({
     url: `/mp/articles/${id}`,
-    method: "POST",
+    method: "DELETE",
   });
 };
 
