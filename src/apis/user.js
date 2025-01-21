@@ -1,11 +1,11 @@
 import { request } from "@/utils";
 
 //登录
-export function loginAPI(loginForm) {
+export function loginAPI(formData) {
   return request({
     url: "/authorizations",
     method: "POST",
-    date: loginForm,
+    data: formData,
   });
 }
 

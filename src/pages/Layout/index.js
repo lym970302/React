@@ -8,24 +8,29 @@ import {
 } from "@ant-design/icons";
 import "@ant-design/v5-patch-for-react-19";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-// import { fetchUserInfo } from "@/store/modules/user";
-// import { useEffect } from "react";
-// import { useDispatch } from "react-redux";
+import { fetchUserInfo, clearUserInfo } from "@/store/modules/user";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const GeekLayout = () => {
   const { Header, Sider } = Layout;
   const navigate = useNavigate();
-  // const dispathch = useDispatch();
+  const dispathch = useDispatch();
+
+  //获取登录用户名
+  const name = useSelector((state) => state.user.userInfo.name);
 
   //获取登录用户信息
-  // useEffect(() => {
-  //   dispathch(fetchUserInfo());
-  // }, [dispathch]);
+  useEffect(() => {
+    dispathch(fetchUserInfo());
+  }, [dispathch]);
 
   //退出确认
   const onConfirm = () => {
+    dispathch(clearUserInfo());
     navigate("/login");
-    message.success("Click on Yes");
+    message.success("退出成功");
   };
 
   //点侧边栏切换
@@ -48,7 +53,7 @@ const GeekLayout = () => {
       <Header className="header">
         <div className="logo" />
         <div className="user-info">
-          <span className="user-name">lym</span>
+          <span className="user-name">{name}</span>
           <span className="user-logout">
             <Popconfirm
               title="退出登录"

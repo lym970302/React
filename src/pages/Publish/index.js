@@ -11,9 +11,7 @@ import {
   Upload,
 } from "antd";
 import { Link } from "react-router-dom";
-// import { useChannel } from "@/hooks/useChannel";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import { useChannel } from "@/hooks/useChannel";
 import "./index.scss";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
@@ -21,6 +19,8 @@ import { createArticleAPI } from "@/apis/article";
 
 const Publish = () => {
   const [form] = Form.useForm();
+
+  const { Option } = Select;
 
   //获取路由查询参数id
   // const [searchParams] = useSearchParams();
@@ -40,7 +40,7 @@ const Publish = () => {
   const onUploadChange = (value) => {
     setImageList(value.fileList);
   };
-  // const { channelList } = useChannel();
+  const { channelList } = useChannel();
 
   //提交表单
   const onFinish = (formValue) => {
@@ -96,15 +96,13 @@ const Publish = () => {
             name="channel_id"
             rules={[{ required: true, message: "请选择文章频道" }]}
           >
-            <Select
-              placeholder="请选择文章频道"
-              style={{ width: 400 }}
-              options={[
-                { value: "jack", label: "Jack" },
-                { value: "lucy", label: "Lucy" },
-                { value: "Yiminghe", label: "yiminghe" },
-              ]}
-            />
+            <Select placeholder="请选择文章频道" style={{ width: 400 }}>
+              {channelList.map((item) => (
+                <Option key={item.id} id={item.id}>
+                  {item.name}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item label="封面">
             <Form.Item name="type">

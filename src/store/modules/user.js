@@ -31,7 +31,7 @@ const userReducer = userStore.reducer;
 const fetchLogin = (loginForm) => {
   return async (dispatch) => {
     const res = await loginAPI(loginForm);
-    dispatch(setToken(res.date.token));
+    dispatch(setToken(res.data.token));
   };
 };
 
@@ -39,7 +39,7 @@ const fetchLogin = (loginForm) => {
 const fetchUserInfo = () => {
   return async (dispatch) => {
     const res = await getUserInfo();
-    dispatch(setUserInfo(res.date));
+    dispatch(setUserInfo(res.data));
   };
 };
 
