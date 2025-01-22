@@ -10,7 +10,7 @@ import {
   Space,
   Upload,
 } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useChannel } from "@/hooks/useChannel";
 import "./index.scss";
 import { useState } from "react";
@@ -21,6 +21,8 @@ const Publish = () => {
   const [form] = Form.useForm();
 
   const { Option } = Select;
+
+  const navigate = useNavigate();
 
   //获取路由查询参数id
   // const [searchParams] = useSearchParams();
@@ -43,7 +45,7 @@ const Publish = () => {
   const { channelList } = useChannel();
 
   //提交表单
-  const onFinish = (formValue) => {
+  const onFinish = async (formValue) => {
     if (imageList.length !== imageType) {
       return message.warning("封面类型和图片数量不匹配");
     }
@@ -63,7 +65,9 @@ const Publish = () => {
       },
       channel_id,
     };
-    createArticleAPI(reqData);
+    await createArticleAPI(reqData);
+    navigate("/Article");
+    message.success("文章发布成功！");
   };
   return (
     <div className="publish">

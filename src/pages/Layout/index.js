@@ -55,6 +55,7 @@ const GeekLayout = () => {
         <div className="user-info">
           <span className="user-name">{name}</span>
           <span className="user-logout">
+            退出
             <Popconfirm
               title="退出登录"
               description="确认要退出登录吗？"
