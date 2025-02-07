@@ -10,23 +10,22 @@ import {
   Space,
   Upload,
 } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useChannel } from "@/hooks/useChannel";
 import "./index.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { createArticleAPI } from "@/apis/article";
+import { getArticleById, updateArticleAPI } from "../../apis/article";
 
 const Publish = () => {
+  //Form实例
   const [form] = Form.useForm();
 
+  //解构Select
   const { Option } = Select;
 
   const navigate = useNavigate();
-
-  //获取路由查询参数id
-  // const [searchParams] = useSearchParams();
-  // const articleId = searchParams.get("id");
 
   //图片个数类型
   const [imageType, setImageType] = useState(1);
@@ -43,6 +42,30 @@ const Publish = () => {
     setImageList(value.fileList);
   };
   const { channelList } = useChannel();
+
+  //获取路由查询参数id
+  const [searchParams] = useSearchParams();
+  const articleId = searchParams.get("id");
+
+  //根据文章ID获取文章信息（回填）
+  useEffect(() => {
+    if (articleId) {
+      async function getArticleDetails() {
+        const res = await getArticleById(articleId);
+        form.setFieldsValue({
+          ...res.data,
+          type: res.data.cover.type,
+        });
+        setImageType(res.data.cover.type);
+        setImageList(
+          res.data.cover.images.map((url) => {
+            return { url };
+          })
+        );
+      }
+      getArticleDetails();
+    }
+  }, [articleId, form]);
 
   //提交表单
   const onFinish = async (formValue) => {
@@ -65,9 +88,15 @@ const Publish = () => {
       },
       channel_id,
     };
-    await createArticleAPI(reqData);
-    navigate("/Article");
-    message.success("文章发布成功！");
+    if (articleId) {
+      updateArticleAPI({ ...reqData, id: articleId });
+      navigate("/Article");
+      message.success("文章编辑成功！");
+    } else {
+      await createArticleAPI(reqData);
+      navigate("/Article");
+      message.success("文章发布成功！");
+    }
   };
   return (
     <div className="publish">
@@ -76,7 +105,7 @@ const Publish = () => {
           <Breadcrumb
             items={[
               { title: <Link to={"/"}>首页</Link> },
-              { title: "发布文章" },
+              { title: articleId ? "编辑文章" : "发布文章" },
             ]}
           />
         }

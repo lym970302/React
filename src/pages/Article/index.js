@@ -12,8 +12,9 @@ import {
   Popconfirm,
 } from "antd";
 import { useChannel } from "@/hooks/useChannel";
+import img404 from "@/assets/error.png";
 import { getAriticleListAPI, delArticleAPI } from "@/apis/article";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import locale from "antd/es/date-picker/locale/zh_CN";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
@@ -25,6 +26,9 @@ const Article = () => {
 
   //获取频道列表
   const { channelList } = useChannel();
+
+  //路由
+  const navigate = useNavigate();
 
   //枚举
   const status = {
@@ -68,7 +72,16 @@ const Article = () => {
     setReqData({ ...reqData, page });
   };
   const columns = [
-    { title: "封面", dataIndex: "cover", width: 120 },
+    {
+      title: "封面",
+      dataIndex: "cover",
+      width: 120,
+      render: (data) => {
+        return (
+          <img src={data.images[0] || img404} width={80} height={60} alt="" />
+        );
+      },
+    },
     { title: "标题", dataIndex: "title", width: 120 },
     {
       title: "状态",
@@ -96,6 +109,9 @@ const Article = () => {
               type="primary"
               shape="circle"
               icon={<EditOutlined />}
+              onClick={() => {
+                navigate(`/publish?id=${data.id}`);
+              }}
             ></Button>
 
             <Popconfirm
