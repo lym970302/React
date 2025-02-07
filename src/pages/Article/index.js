@@ -60,7 +60,18 @@ const Article = () => {
   }, [reqData]);
 
   //提交表单
-  const onFinish = () => {};
+  const onFinish = (formValue) => {
+    console.log(formValue);
+    setReqData({
+      ...reqData,
+      status: formValue.status,
+      channel_id: formValue.channel_id,
+      begin_pubdate: formValue.date
+        ? formValue.date[0].format("YYYY-MM-DD")
+        : "",
+      end_pubdate: formValue.date ? formValue.date[1].format("YYYY-MM-DD") : "",
+    });
+  };
   //确认删除
   const onConfirm = async (data) => {
     console.log(data);

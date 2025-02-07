@@ -52,6 +52,8 @@ const Publish = () => {
     if (articleId) {
       async function getArticleDetails() {
         const res = await getArticleById(articleId);
+        console.log(res);
+
         form.setFieldsValue({
           ...res.data,
           type: res.data.cover.type,
@@ -89,7 +91,7 @@ const Publish = () => {
       channel_id,
     };
     if (articleId) {
-      updateArticleAPI({ ...reqData, id: articleId });
+      await updateArticleAPI({ ...reqData, id: articleId });
       navigate("/Article");
       message.success("文章编辑成功！");
     } else {
@@ -131,7 +133,7 @@ const Publish = () => {
           >
             <Select placeholder="请选择文章频道" style={{ width: 400 }}>
               {channelList.map((item) => (
-                <Option key={item.id} id={item.id}>
+                <Option key={item.id} id={item.id} value={item.id}>
                   {item.name}
                 </Option>
               ))}

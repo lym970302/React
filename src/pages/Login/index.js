@@ -14,7 +14,7 @@ const Login = () => {
     await dispatch(fetchLogin(formValue));
     //登陆跳转
     navigate("/");
-    message.success("登陆成功");
+    message.success("登录成功");
   };
   return (
     <div className="login">
