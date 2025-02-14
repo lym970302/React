@@ -9,7 +9,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onFinish = async (formValue) => {
-    console.log(formValue);
     //登录
     await dispatch(fetchLogin(formValue));
     //登陆跳转

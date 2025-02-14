@@ -46,7 +46,7 @@ const Article = () => {
     begin_pubdate: "",
     end_pubdate: "",
     page: 1,
-    per_page: 6,
+    per_page: 4,
   });
 
   //获取所有文章
@@ -61,7 +61,6 @@ const Article = () => {
 
   //提交表单
   const onFinish = (formValue) => {
-    console.log(formValue);
     setReqData({
       ...reqData,
       status: formValue.status,
@@ -74,7 +73,6 @@ const Article = () => {
   };
   //确认删除
   const onConfirm = async (data) => {
-    console.log(data);
     await delArticleAPI(data.id);
     setReqData({ ...reqData });
   };

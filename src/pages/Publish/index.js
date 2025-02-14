@@ -52,8 +52,6 @@ const Publish = () => {
     if (articleId) {
       async function getArticleDetails() {
         const res = await getArticleById(articleId);
-        console.log(res);
-
         form.setFieldsValue({
           ...res.data,
           type: res.data.cover.type,
